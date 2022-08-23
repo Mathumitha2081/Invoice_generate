@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="/doodlebule-logo.png">
+    <link rel="icon" type="image/x-icon" href="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -49,7 +49,7 @@
 
                                             <a class="btn btn-success" href="{{ url('billing') }}"> Billing Page
                                                 </a>
-                                                <a class="btn btn-success" href="{{ route('purchase') }}"> Purchase
+                                                <a class="btn btn-success" href="{{ route('list_email') }}"> Purchase
                                                     Details</a>
                                         </div>
                                     </div>
@@ -98,8 +98,8 @@
                 </div>
 
             </div>
-   
-   
+
+
 </body>
 
 </html>

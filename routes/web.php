@@ -30,10 +30,7 @@ Route::get('/login', function () {
 Route::get('/products', function () {
     return view('list_product');
 });
-//customer login
-Route::get('/customer', function () {
-    return view('customer_login');
-});
+
 Route::get('/index', function () {
     return view('list_product');
 });
@@ -43,27 +40,28 @@ Route::get('/billing', function () {
 Route::get('/invoice', function () {
     return view('emails.InvoiceMail');
 });
-// admin and customer dashboard with middleware checking
+
+// admin  dashboard with middleware checking
 Route::get("/admin_dashboard", [ProductController::class, 'admin_dashboard'])->name('admin_dashboard')->middleware('authcheck');
-Route::get("/customers_dash", [ProductController::class, 'customers_dashboard'])->name('customers_dash')->middleware('authcheck');
 
 //admin and customerlogin
 Route::post("/check", [AdminController::class, 'check'])->name('check');
-Route::post("/customer_check", [AdminController::class, 'customer_check'])->name('customer_check');
 
 //create product and customerlist
 Route::post("/create", [AdminController::class, 'create'])->name('create')->middleware('authcheck');
-Route::get("/customers", [ProductController::class, 'customers'])->name('customers')->middleware('authcheck');
 
 //resource for product list ,ediit ,delete, create
 Route::resource('products', ProductController::class);
 
 Route::post('/denominations', [purchaseController::class, 'add_denominations'])->name('add_deno');
-Route::get('/purchase', [purchaseController::class, 'purchase'])->name('purchase');
+Route::get('/purchase/{response_email}', [purchaseController::class, 'purchase'])->name('purchase');
 
-
-//add_purchase 
+//add_purchase
 Route::post('/add_purchase', [purchaseController::class, 'add_purchase'])->name('add_purchase');
+
+Route::get('/list_email', [purchaseController::class, 'list_customerEmail'])->name('list_email');
+
+
 
 //logout for admin
 Route::get("/logout", [AdminController::class, 'logout']);

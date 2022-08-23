@@ -28,9 +28,8 @@ class AdminController extends Controller
                 $request->session()->put('LoggedUser', $user->id);
 
                 $products = Product::orderBy('id', 'asc')->paginate(10);
-                $customers = Customer::orderBy('id', 'asc')->paginate(10);
 
-                return view('admin_dashboard', compact('products', 'customers'));
+                return view('admin_dashboard', compact('products'));
                 // redirect to profile page
             } else {
                 return back()->with('fail', "Invalid pass");
@@ -40,30 +39,7 @@ class AdminController extends Controller
         }
     }
 
-         //customer login validation
-    function customer_check(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:5|max:15'
-        ]);
 
-        $user = Customer::where('email', '=', $request->email)->first();
-        if ($user) {
-            if (Hash::check($request->password, $user->password)) {
-                $request->session()->put('LoggedUser', $user->id);
-
-                $products = Product::orderBy('id', 'asc')->paginate(10);
-
-
-                return view('customer_dashboard', compact('products'));
-            } else {
-                return back()->with('fail', "Invalid pass");
-            }
-        } else {
-            return back()->with('fail', "NO Account Found");
-        }
-    }
 
     //generate report for product
     public function product_report()
@@ -73,14 +49,7 @@ class AdminController extends Controller
         $pdf = PDF::loadView('product_report', compact('products'));
         return $pdf->download('products.pdf');
     }
-    //generate report for customer
-    public function customer_report()
-    {
-        $customers = Customer::all();
-
-        $pdf = PDF::loadView('customer_report', compact('customers'));
-        return $pdf->download('customers.pdf');
-    }
+  
     //admin  logout
     public function logout()
     {

@@ -21,20 +21,25 @@
 
         <table class="table table-bordered">
             <tr>
-                <th>Product ID</th>
+                <th> Purchase ID</th>
                 <th>Customer Email</th>
-                <th>Total Amount </th>
-                <th>Payment Status</th>
+                <th width="280px">Action</th>
             </tr>
-            @foreach ($purchase_data as $product_details)
-                <tr>
-                    <td>{{ $product_details['product_id'] }}</td>
-                    <td>{{ $product_details['customer_email'] }}</td>
-                    <td>{{ $product_details['total_amount'] }}</td>
-                    <td>{{ $product_details['payment_status'] }}</td>
+            @for ($i = 0; $i < $count; $i++)
+            @php
+            $j=1;
+                $j=$i+$j;
+            @endphp
+            <tr>
+                    <td>{{ $j}}</td>
+                    <td>{{ $response_email[$i]}}</td>
+
+                    <td>   <a class="btn btn-info" href="{{ route('purchase', $response_email[$i]) }}">Preview</a>
+                    </td>
+
 
                 </tr>
-            @endforeach
+                @endfor
         </table>
 
         <div class="pull-right">

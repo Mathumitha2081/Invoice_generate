@@ -2,15 +2,16 @@
 
 namespace App\Jobs;
 
-use App\Mail\InvoiceMail;
+use App\Mail\SendInvoiceMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
-class SendEmail implements ShouldQueue
+class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -19,16 +20,26 @@ class SendEmail implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($totalprices,$count,$invoice_summary, $email,$message,$pdf)
-    {
-        $this->totalprices=$totalprices;
-        $this->count=$count;
-        $this->invoice_summary=$invoice_summary;
-        $this->email=$email;
-        $this->message=$message;
-        $this->pdf=$pdf;
 
-     
+     protected $email;
+     protected $totalprices;
+     protected $invoice_summary;
+     protected $data;
+     protected $count;
+
+
+
+
+
+    public function __construct($email,$totalprices,$invoice_summary,$count,$data)
+    {
+        $this->email=$email;
+        $this->totalprices=$totalprices;
+        $this->invoice_summary=$invoice_summary;
+        $this->count=$count;
+        $this->data=$data;
+
+
     }
 
     /**
@@ -38,6 +49,7 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->(new InvoiceMail($pdf) );
+        Mail::to($this->email)->send(new SendInvoiceMail($this->totalprices,$this->invoice_summary,$this->count,$this->data));
+
     }
 }

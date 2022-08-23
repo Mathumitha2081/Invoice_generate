@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="/doodlebule-logo.png">
+    <link rel="icon" type="image/x-icon" href="">
     <title>Billing Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -168,7 +168,7 @@
         </div>
         <a class="btn btn-danger" href="{{ url('admin_dashboard') }}"> Cancel</a>
 
-        <input type="submit" name="submit" class="btn btn-info p-4" value="Generate Bill" />
+        <input type="submit" name="submit" class="btn btn-info p-4" value="Generate Bill " />
     </div>
     </form>
     <script>
