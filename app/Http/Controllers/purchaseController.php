@@ -91,6 +91,10 @@ class purchaseController extends Controller
         foreach ($res_amount as $key => $value) {
             $sum_amount += $value;
         }
+       $sum_tax_payable = 0;
+        foreach ($tax_payable as $key => $value) {
+            $sum_tax_payable += $value;
+        }
         $sum__prices = 0;
         foreach ($totalprices_without_tax as $key => $value) {
             $sum__prices += $value;
@@ -104,8 +108,8 @@ class purchaseController extends Controller
 
         $invoice_summary = [
             'price_without_tax' => $sum__prices,
-            'tax_payable' => $tax_payable[0],
-            'net_price' => $res_amount[0],
+            'tax_payable' => $sum_tax_payable,
+            'net_price' => $sum_amount,
             'rounded_price' => $rounded_price,
             'balance_payable' => $balance_amount,
 
